@@ -49,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean isChildCategory(Category category, Category parent) {
+
         return category.getParent().equals(parent);
     }
 

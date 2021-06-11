@@ -44,6 +44,8 @@ public class CategoryProductsController {
 	@Autowired
 	private CategoryModelAssembler categoryModelAssembler;
 
+
+	//GET
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> retrieveAllProducts(@PathVariable Long categoryid) {
 
@@ -57,7 +59,9 @@ public class CategoryProductsController {
 
 		return ResponseEntity.ok(categoryModelAssembler.toModel(category));
 	}
-	
+
+
+	//POST
 	@RequestMapping(path = "/{productid}", method = RequestMethod.POST)
 	public ResponseEntity<?> addProduct(@PathVariable Long categoryid, @PathVariable Long productid) {
 
@@ -82,6 +86,30 @@ public class CategoryProductsController {
 		ProductModel productModel  = productModelAssembler.toModel(product);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(productModel);
+	}
+
+
+	//DELETE -new
+	@RequestMapping(path = "/{productid}", method = RequestMethod.DELETE)
+	public ResponseEntity<?>  removeCategoryProduct(@PathVariable Long categoryid, @PathVariable Long productid) {
+
+		final Category category = categoryService.getCategoryById(categoryid)
+				.orElseThrow(() -> new NotFoundException(categoryid));
+
+		// Getting the requiring product; or throwing exception if not found
+		final Product product = productService.getProductById(productid)
+				.orElseThrow(() -> new NotFoundException(categoryid));
+
+		// Validating if association does not exist...
+		if (!productService.hasCategory(product,category)) {
+			throw new IllegalArgumentException(
+					"category " + category.getId() + " already no contains product " + product.getId());
+		}
+
+		productService.removeCategory(product, category);
+
+		return ResponseEntity.noContent().build();
+
 	}
 
 }

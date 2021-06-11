@@ -6,20 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * A Product is an entity that represents an article for sale.
- * Products are associated with categories either directly or indirectly.
- * For instance, for a given child category B, if it's associated to a
- * parent category A, then the Product is associated with
- * category B (directly) and A (indirectly).
- *
- * @author dnardelli
- */
+//Product는 다수 개의 Category에 속할 수 있다. (ManyToMany 관계 +jointable 사용)
 @Getter
 @Setter
 @Entity
 @Table(name = "app_product")
 public class Product extends AbstractEntity {
+
+    //id는 AbstractEntity에 있음.
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -8,21 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
-/**
- * Defines an abstract entity for the system.
- * All entities in the system must have an 'id' field.
- * This field is being used to check equality.
- *
- * @author dnardelli
- */
-@MappedSuperclass
+@MappedSuperclass   //@MappedSuperclass를 이용하여 공통요소를 Super Class에 정의
 @Getter
 @Setter
 public class AbstractEntity {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id;  //공통 매핑 정보
 
     @Override
     public boolean equals(Object obj) {
@@ -37,6 +30,7 @@ public class AbstractEntity {
 
     @Override
     public int hashCode() {
+
         return Objects.hashCode(id);
     }
 

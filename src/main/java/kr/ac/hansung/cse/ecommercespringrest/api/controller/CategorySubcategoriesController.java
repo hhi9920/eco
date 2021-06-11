@@ -37,6 +37,8 @@ public class CategorySubcategoriesController {
     @Autowired
     private CategoryModelAssembler categoryModelAssembler;
 
+
+    //GET
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> retrieveAllSubcategories(@PathVariable Long parentid) {
     	
@@ -50,6 +52,8 @@ public class CategorySubcategoriesController {
         return ResponseEntity.ok(categoryModelAssembler.toCollectionModel(subcategories));
     }
 
+
+    //POST
     @RequestMapping(path = "/{childid}", method = RequestMethod.POST)
     public ResponseEntity<?> addSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
 
@@ -75,6 +79,8 @@ public class CategorySubcategoriesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryModel);
     }
 
+
+    //DELETE
     @RequestMapping(path = "/{childid}", method = RequestMethod.DELETE)
     public ResponseEntity<?> removeSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
     	

@@ -1,8 +1,10 @@
 package kr.ac.hansung.cse.ecommercespringrest.api.controller;
 
 import kr.ac.hansung.cse.ecommercespringrest.api.Representationmodel.CategoryModel;
+import kr.ac.hansung.cse.ecommercespringrest.api.Representationmodel.ProductModel;
 import kr.ac.hansung.cse.ecommercespringrest.api.assembler.CategoryModelAssembler;
 import kr.ac.hansung.cse.ecommercespringrest.entity.Category;
+import kr.ac.hansung.cse.ecommercespringrest.entity.Product;
 import kr.ac.hansung.cse.ecommercespringrest.exception.NotFoundException;
 import kr.ac.hansung.cse.ecommercespringrest.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,8 @@ public class CategoryController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryModel);
     }
+
+
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryDto request) {
